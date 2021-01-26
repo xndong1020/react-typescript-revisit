@@ -1,5 +1,5 @@
 import { Button, Typography } from "@material-ui/core";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface User {
   name: string;
@@ -24,22 +24,27 @@ const UserSearch = () => {
 
   const [name, setName] = useState("");
   const [guest, setGuest] = useState<User>();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const onClick = () => {
+  useEffect(() => {
+    inputRef?.current?.focus();
+  }, []);
+
+  const onClick = (): void => {
     const guest: User | undefined = initUsers.find(
       (user) => user.name === name
     );
     setGuest(guest);
   };
 
+  const onChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+    setName(evt.target.value);
+  };
+
   return (
     <div>
       <Typography variant="h6">Find User</Typography>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+      <input ref={inputRef} type="text" value={name} onChange={onChange} />
       <Button variant="contained" onClick={onClick}>
         Find
       </Button>
