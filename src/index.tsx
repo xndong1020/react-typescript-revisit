@@ -1,11 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import UserSearch from './state/UserSearch';
-// import GuestList from './state/GuestList';
+import React from "react";
+import ReactDOM from "react-dom";
+import PackageSearch from "./components/PackageSearch";
+import { store } from "./store/store";
+import { Provider } from "react-redux";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <UserSearch />
-  </React.StrictMode>,
-  document.querySelector('#root')
+  <Provider store={store}>
+    <PackageSearch />
+  </Provider>,
+  document.querySelector("#root")
 );

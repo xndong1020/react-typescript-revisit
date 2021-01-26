@@ -1,17 +1,14 @@
-### Section 4: Redux
-
-```ts
-yarn add @types/react-redux axios react-redux redux redux-thunk
-```
-
-Component
-
-```ts
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Button } from "@material-ui/core";
+import { fetchRepositoryAsync } from "../actions/repositoryActions";
 
 const PackageSearch = () => {
   const [searchTerm, SetSearchTerm] = useState("");
+
+  const fetchPackage = useCallback(
+    () => fetchRepositoryAsync(searchTerm),
+    [searchTerm]
+  );
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const val = evt.target.value;
@@ -22,7 +19,7 @@ const PackageSearch = () => {
   return (
     <form>
       <input value={searchTerm} onChange={handleChange} />
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={fetchPackage}>
         Search Package
       </Button>
     </form>
@@ -30,4 +27,3 @@ const PackageSearch = () => {
 };
 
 export default PackageSearch;
-```
