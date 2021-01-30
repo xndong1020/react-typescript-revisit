@@ -1,14 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Button } from "@material-ui/core";
-import { fetchRepositoryAsync } from "../actions/repositoryActions";
 
 const PackageSearch = () => {
   const [searchTerm, SetSearchTerm] = useState("");
-
-  const fetchPackage = useCallback(
-    () => fetchRepositoryAsync(searchTerm),
-    [searchTerm]
-  );
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const val = evt.target.value;
@@ -19,7 +13,7 @@ const PackageSearch = () => {
   return (
     <form>
       <input value={searchTerm} onChange={handleChange} />
-      <Button variant="contained" color="primary" onClick={fetchPackage}>
+      <Button variant="contained" color="primary" onClick={() => {}}>
         Search Package
       </Button>
     </form>
