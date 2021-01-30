@@ -1,17 +1,30 @@
-interface RepositoryReducerProps {
-  data: any[];
-  error: any[];
-  loading: boolean;
+import { ActionTypes } from "../actions/repository/actionTypes";
+
+export interface RepositoryReducerState {
+  data: string[];
+  error: string | null;
+  isLoading: boolean;
 }
 
-interface ActionObj {
-  actionType: string;
-  payload? : any;
-}
+const initState: RepositoryReducerState = {
+  data: [],
+  error: null,
+  isLoading: false,
+};
 
-export const repositoryReducer = (state: RepositoryReducerProps = {data: [], error: [], loading: false}, action: ActionObj) => {
-  console.log('aaa', action)
-  return state;
-}
-
-  
+/* a reducer function must return a new state */
+export const repositoryReducer = (
+  state: RepositoryReducerState = initState,
+  action: any
+) => {
+  switch (action.type) {
+    case ActionTypes.FETCH_REPOSITORY:
+      console.log("repo reducer", action);
+      return {
+        ...state,
+        isLoading: true,
+      };
+    default:
+      return state;
+  }
+};
