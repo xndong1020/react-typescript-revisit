@@ -579,3 +579,24 @@ thunk.withExtraArgument = createThunkMiddleware;
 
 export default thunk;
 ```
+
+#### Step 13. Strongly type FetchRepository response
+
+Note: use this website to generate interface based on JSON doc
+
+[http://json2ts.com/](http://json2ts.com/)
+
+Example:
+
+```ts
+  ...
+      const res = await axios.get<FetchRepositoryResponse>(`search`, {
+        params: {
+          text: searchTerm,
+        },
+      });
+      const names = res.data.objects.map(
+        (object: Object) => object.package.name
+      );
+  ...
+```
