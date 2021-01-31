@@ -1,6 +1,9 @@
 import { Middleware, MiddlewareAPI, Dispatch, AnyAction } from "redux";
 
-// export const myLoggerMiddleware: Middleware = ({dispatch, getState}) => (next) => (action) => {
+// export const myLoggerMiddleware: Middleware = ({
+//   dispatch,
+//   getState,
+// }: MiddlewareAPI) => (next: Dispatch<AnyAction>) => (action: any) => {
 //   if (typeof action === "function") {
 //     return action(dispatch);
 //   }
@@ -8,7 +11,7 @@ import { Middleware, MiddlewareAPI, Dispatch, AnyAction } from "redux";
 // };
 
 export function myLoggerMiddleware({ dispatch, getState }: MiddlewareAPI) {
-  return function (next: any) {
+  return function (next: Dispatch<AnyAction>) {
     return function (action: any) {
       if (typeof action === "function") {
         return action(dispatch);

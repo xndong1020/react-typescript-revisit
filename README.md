@@ -527,3 +527,55 @@ export const fetchRepositoryAsync = (searchTerm: string) => {
   };
 };
 ```
+
+#### Step 12. Create your own redux middleware
+
+the format of redux middleware is like below:
+
+```ts
+import { Middleware, MiddlewareAPI, Dispatch, AnyAction } from "redux";
+
+export const myLoggerMiddleware: Middleware = ({
+  dispatch,
+  getState,
+}: MiddlewareAPI) => (next: Dispatch<AnyAction>) => (action: any) => {
+  if (typeof action === "function") {
+    return action(dispatch);
+  }
+  return next(action);
+};
+```
+
+```ts
+import { Middleware, MiddlewareAPI, Dispatch, AnyAction } from "redux";
+
+export function myLoggerMiddleware({ dispatch, getState }: MiddlewareAPI) {
+  return function (next: Dispatch<AnyAction>) {
+    return function (action: any) {
+      if (typeof action === "function") {
+        return action(dispatch);
+      }
+      return next(action);
+    };
+  };
+}
+```
+
+Note: below is the source code of redux-thunk middleware
+
+```ts
+function createThunkMiddleware(extraArgument) {
+  return ({ dispatch, getState }) => (next) => (action) => {
+    if (typeof action === "function") {
+      return action(dispatch, getState, extraArgument);
+    }
+
+    return next(action);
+  };
+}
+
+const thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+export default thunk;
+```
