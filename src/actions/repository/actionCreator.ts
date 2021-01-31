@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { RepositoryAction } from "../../reducers/repositoryReducer";
-import instance from "../../utils/axios";
+import axios from "../../utils/axios";
 import { ActionTypes } from "./actionTypes";
 
 export const fetchRepositoryAsync = (searchTerm: string) => {
@@ -8,7 +8,7 @@ export const fetchRepositoryAsync = (searchTerm: string) => {
     // settings `isLoading` to true
     dispatch({ type: ActionTypes.FETCH_REPOSITORY });
     try {
-      const res = await instance.get(`search`, {
+      const res = await axios.get(`search`, {
         params: {
           text: searchTerm,
         },
