@@ -600,3 +600,41 @@ Example:
       );
   ...
 ```
+
+#### Step 14: Create a custom `useActions` hook for binding dispatch to any action creator
+
+```ts
+import { Action, bindActionCreators, Dispatch } from "redux";
+import { useDispatch } from "react-redux";
+import * as actionCreators from "./actionCreator";
+
+export function useActions<T>() {
+  const dispatch = useDispatch<Dispatch<Action<T>>>();
+
+  return bindActionCreators(actionCreators, dispatch);
+}
+```
+
+Then use it in your component like below:
+
+And no longer need to import `dispatch` in your components
+
+instead of
+
+```ts
+const dispatch = useDispatch();
+...
+dispatch(fetchRepositoryAsync(searchTerm));
+
+```
+
+Now the `dispatch` is bind into action creators
+
+```ts
+const { fetchRepositoryAsync } = useActions<RepositoryAction>();
+...
+
+ const handleSearch = () => {
+    fetchRepositoryAsync(searchTerm);
+  };
+```

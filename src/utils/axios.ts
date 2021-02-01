@@ -1,6 +1,6 @@
-import _axios, { AxiosInstance } from "axios";
+import _axios from "axios";
 
-const axios: AxiosInstance = _axios.create({
+const axios = _axios.create({
   baseURL: "http://registry.npmjs.org/-/v1/",
 });
 

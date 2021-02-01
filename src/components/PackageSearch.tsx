@@ -1,23 +1,23 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Button, CircularProgress } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
-import { fetchRepositoryAsync } from "../actions/repository/actionCreator";
+import { useActions } from "../hooks/useActions";
 import { RootState } from "../store/configureStore";
-import { RepositoryReducerState } from "../reducers";
+import { RepositoryAction } from "../reducers";
 
 const PackageSearch = () => {
   const [searchTerm, SetSearchTerm] = useState("");
 
-  const dispatch = useDispatch();
+  const { fetchRepositoryAsync } = useActions<RepositoryAction>();
 
-  const { data, error, isLoading }: RepositoryReducerState = useSelector(
+  const { data, error, isLoading } = useSelector(
     (state: RootState) => state.repositoryReducer
   );
 
   const handleSearch = () => {
-    dispatch(fetchRepositoryAsync(searchTerm));
+    fetchRepositoryAsync(searchTerm);
   };
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
